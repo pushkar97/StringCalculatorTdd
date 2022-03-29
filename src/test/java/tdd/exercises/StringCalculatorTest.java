@@ -27,4 +27,10 @@ class StringCalculatorTest {
         Assertions.assertThat(calculator.add("1,2")).isEqualTo(3);
         Assertions.assertThat(calculator.add("11,21")).isEqualTo(32);
     }
+
+    @Test
+    public void whenInputHasUnknownNumbersCommaSeparated_returnSumOfAll() {
+        Assertions.assertThat(calculator.add("1,2,3,4")).isEqualTo(10);
+        Assertions.assertThat(calculator.add("11,21,10")).isEqualTo(42);
+    }
 }

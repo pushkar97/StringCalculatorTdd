@@ -33,4 +33,9 @@ class StringCalculatorTest {
         Assertions.assertThat(calculator.add("1,2,3,4")).isEqualTo(10);
         Assertions.assertThat(calculator.add("11,21,10")).isEqualTo(42);
     }
+
+    @Test
+    public void whenInputHasNewLineCharSeparator_returnSum() {
+        Assertions.assertThat(calculator.add("1\n2,3")).isEqualTo(6);
+    }
 }

@@ -15,4 +15,11 @@ class StringCalculatorTest {
     public void whenStringIsEmpty_return0() {
         Assertions.assertThat(calculator.add("")).isEqualTo(0);
     }
+
+    @Test
+    public void whenStringOneNumber_returnSameNumber() {
+        Assertions.assertThat(calculator.add("1")).isEqualTo(1);
+        Assertions.assertThat(calculator.add("2")).isEqualTo(2);
+        Assertions.assertThat(calculator.add("99")).isEqualTo(99);
+    }
 }

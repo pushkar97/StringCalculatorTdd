@@ -12,7 +12,7 @@ class StringCalculatorTest {
     public void setup() {calculator = new StringCalculator();}
 
     @Test
-    public void testSetup() {
-        Assertions.assertThat(calculator).isNotNull();
+    public void whenStringIsEmpty_return0() {
+        Assertions.assertThat(calculator.add("")).isEqualTo(0);
     }
 }

@@ -17,15 +17,16 @@ public class StringCalculator {
             s = s.replace(group, "");
         }
         String regex = delimiter + "|\\n";
+        return findSum(s, regex);
+    }
+
+    private int findSum(String input, String delimiter) {
         int sum = 0;
         List<Integer> negatives = new ArrayList<>();
-        for(String n : s.split(regex)) {
+        for(String n : input.split(delimiter)) {
             int i = Integer.parseInt(n);
-            if (i >= 0) {
-                sum += i;
-            }else {
-                negatives.add(i);
-            }
+            if (i >= 0) sum += i;
+            else negatives.add(i);
         }
         if (!negatives.isEmpty()) throw new RuntimeException("negatives not allowed: "+ negatives);
         return sum;
@@ -33,7 +34,6 @@ public class StringCalculator {
 
     private Matcher getMatcherForCustomDelimiter(String s) {
         Pattern p = Pattern.compile("//(.+)\\n");
-        Matcher matcher = p.matcher(s);
-        return matcher;
+        return p.matcher(s);
     }
 }

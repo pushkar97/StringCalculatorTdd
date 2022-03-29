@@ -1,5 +1,7 @@
 package tdd.exercises;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,8 +10,7 @@ public class StringCalculator {
     public int add(String s) {
         if(s.isBlank()) return 0;
         String delimiter = ",";
-        Pattern p = Pattern.compile("//(.+)\\n");
-        Matcher matcher = p.matcher(s);
+        Matcher matcher = getMatcherForCustomDelimiter(s);
         if (matcher.find()){
             String group = matcher.group();
             delimiter = group.substring(2,group.length()-1);
@@ -17,7 +18,22 @@ public class StringCalculator {
         }
         String regex = delimiter + "|\\n";
         int sum = 0;
-        for(String n : s.split(regex)) sum +=Integer.parseInt(n);
+        List<Integer> negatives = new ArrayList<>();
+        for(String n : s.split(regex)) {
+            int i = Integer.parseInt(n);
+            if (i >= 0) {
+                sum += i;
+            }else {
+                negatives.add(i);
+            }
+        }
+        if (!negatives.isEmpty()) throw new RuntimeException("negatives not allowed: "+ negatives);
         return sum;
+    }
+
+    private Matcher getMatcherForCustomDelimiter(String s) {
+        Pattern p = Pattern.compile("//(.+)\\n");
+        Matcher matcher = p.matcher(s);
+        return matcher;
     }
 }

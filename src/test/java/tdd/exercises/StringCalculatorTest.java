@@ -43,4 +43,11 @@ class StringCalculatorTest {
     public void whenCustomDelimiterIsProvided_returnSumSeparatedByCustomDelimiter() {
         Assertions.assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
     }
+
+    @Test
+    public void whenInputHasNegativeNumbers_throwException() {
+        Assertions.assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> calculator.add("//;\n1;-2;-3"))
+                .withMessage("negatives not allowed: [-2, -3]");
+    }
 }

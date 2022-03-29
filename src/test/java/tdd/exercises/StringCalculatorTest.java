@@ -19,7 +19,12 @@ class StringCalculatorTest {
     @Test
     public void whenStringOneNumber_returnSameNumber() {
         Assertions.assertThat(calculator.add("1")).isEqualTo(1);
-        Assertions.assertThat(calculator.add("2")).isEqualTo(2);
         Assertions.assertThat(calculator.add("99")).isEqualTo(99);
+    }
+
+    @Test
+    public void whenInputHas2NumbersCommaSeparated_returnSum() {
+        Assertions.assertThat(calculator.add("1,2")).isEqualTo(3);
+        Assertions.assertThat(calculator.add("11,21")).isEqualTo(32);
     }
 }

@@ -4,6 +4,10 @@ public class StringCalculator {
 
     public int add(String s) {
         if(s.isBlank()) return 0;
-        return Integer.parseInt(s);
+        int sum = 0;
+        for(String n : s.split(",")){
+            sum +=Integer.parseInt(n);
+        }
+        return sum;
     }
 }

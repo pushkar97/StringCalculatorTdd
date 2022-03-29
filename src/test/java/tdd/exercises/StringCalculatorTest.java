@@ -38,4 +38,9 @@ class StringCalculatorTest {
     public void whenInputHasNewLineCharSeparator_returnSum() {
         Assertions.assertThat(calculator.add("1\n2,3")).isEqualTo(6);
     }
+
+    @Test
+    public void whenCustomDelimiterIsProvided_returnSumSeparatedByCustomDelimiter() {
+        Assertions.assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+    }
 }

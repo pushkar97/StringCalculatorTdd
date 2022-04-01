@@ -19,35 +19,36 @@ class StringCalculatorTest {
 
     @Test
     public void whenStringIsEmpty_return0() {
-        Assertions.assertThat(calculator.add("")).isEqualTo(0);
+        assertSumOfInputAndVerifyLogger("", 0);
     }
 
     @Test
     public void whenStringOneNumber_returnSameNumber() {
-        Assertions.assertThat(calculator.add("1")).isEqualTo(1);
-        Assertions.assertThat(calculator.add("99")).isEqualTo(99);
+        assertSumOfInputAndVerifyLogger("1", 1);
+        assertSumOfInputAndVerifyLogger("99", 99);
     }
 
     @Test
     public void whenInputHas2NumbersCommaSeparated_returnSum() {
-        Assertions.assertThat(calculator.add("1,2")).isEqualTo(3);
-        Assertions.assertThat(calculator.add("11,21")).isEqualTo(32);
+        assertSumOfInputAndVerifyLogger("1,2", 3);
+        assertSumOfInputAndVerifyLogger("11,21", 32);
+
     }
 
     @Test
     public void whenInputHasUnknownNumbersCommaSeparated_returnSumOfAll() {
-        Assertions.assertThat(calculator.add("1,2,3,4")).isEqualTo(10);
-        Assertions.assertThat(calculator.add("11,21,10")).isEqualTo(42);
+        assertSumOfInputAndVerifyLogger("1,2,3,4", 10);
+        assertSumOfInputAndVerifyLogger("11,21,10", 42);
     }
 
     @Test
     public void whenInputHasNewLineCharSeparator_returnSum() {
-        Assertions.assertThat(calculator.add("1\n2,3")).isEqualTo(6);
+        assertSumOfInputAndVerifyLogger("1\n2,3", 6);
     }
 
     @Test
     public void whenCustomDelimiterIsProvided_returnSumSeparatedByCustomDelimiter() {
-        Assertions.assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+        assertSumOfInputAndVerifyLogger("//;\n1;2", 3);
     }
 
     @Test
@@ -55,14 +56,11 @@ class StringCalculatorTest {
         Assertions.assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> calculator.add("//;\n1;-2;-3"))
                 .withMessage("negatives not allowed: [-2, -3]");
+        Mockito.verify(repositoryLogger).log("//;\n1;-2;-3");
     }
 
-    @Test
-    public void whenAddInvoked_logInputToLogger() {
-        String input = "//;\n1;2";
-        //when
-        calculator.add(input);
-        //Then
+    private void assertSumOfInputAndVerifyLogger(String input, int expected) {
+        Assertions.assertThat(calculator.add(input)).isEqualTo(expected);
         Mockito.verify(repositoryLogger).log(input);
     }
 }

@@ -7,7 +7,14 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
+    RepositoryLogger logger;
+
+    public StringCalculator(RepositoryLogger logger) {
+        this.logger = logger;
+    }
+
     public int add(String s) {
+        logger.log(s);
         if(s.isBlank()) return 0;
         String delimiter = ",";
         Matcher matcher = getMatcherForCustomDelimiter(s);

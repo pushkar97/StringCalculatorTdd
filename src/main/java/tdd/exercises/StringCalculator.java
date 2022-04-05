@@ -31,7 +31,8 @@ public class StringCalculator {
         int sum = 0;
         List<Integer> negatives = new ArrayList<>();
         for(String n : input.split(delimiter)) {
-            int i = Integer.parseInt(n);
+            String parsed = n.replaceAll("_", "");
+            int i = Integer.parseInt(parsed);
             if (i >= 0) sum += i;
             else negatives.add(i);
         }

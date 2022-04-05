@@ -59,6 +59,11 @@ class StringCalculatorTest {
         Mockito.verify(repositoryLogger).log("//;\n1;-2;-3");
     }
 
+    @Test
+    public void whenInputHasUnderscore_ignoreUnderscore() {
+        assertSumOfInputAndVerifyLogger("1_00,2", 102);
+    }
+
     private void assertSumOfInputAndVerifyLogger(String input, int expected) {
         Assertions.assertThat(calculator.add(input)).isEqualTo(expected);
         Mockito.verify(repositoryLogger).log(input);
